@@ -27,7 +27,7 @@ Convert UI of movie list to boxes showing the movie posters (Netflix style). Cha
 No specific styling is required, this is your chance to show-off your CSS skills.
 
 #### TASK 2
-Implement the sorting options on the “Sort” pull-down menu. Please sort the results locally (do not use the API sort option).
+Implement the sorting options on the “Sort” pull-down menu.
 
 #### TASK 3
 
