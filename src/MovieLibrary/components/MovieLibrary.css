@@ -1,21 +1,30 @@
 .MovieLibrary {
+  background-color: #1A2127;
   text-align: center;
+  max-width: 100vw;
 }
 
 .ML-logo {
   animation: ML-logo-spin infinite 8s ease;
-  height: 80px;
+  height: 40px;
 }
 
 .ML-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  height: 50px;
   color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 40px;
+  width: calc(100% - 80px);
 }
 
 .ML-title {
-  font-size: 1.5em;
+  font-size: 1.6em;
+  font-weight: 500;
+  line-height: 1rem;
+  vertical-align: middle;
+  letter-spacing: 2px;
 }
 
 .ML-intro {

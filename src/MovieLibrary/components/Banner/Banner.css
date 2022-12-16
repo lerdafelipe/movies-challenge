@@ -1,0 +1,82 @@
+    .banner-item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    max-height: 70vh;
+    overflow: hidden;
+    box-shadow: 0 2px 6px 4px rgb(0 0 0 / 24%);
+    border-radius: 5px;
+  }
+  
+  .banner-item h4 {
+    display: inline;
+    margin: 0;
+    margin-right: 10px;
+  }
+  
+  .banner-item  > .description {
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    background-color: #1a212773;
+    text-align: left;
+    height: 70vh;
+    vertical-align: middle;
+    width: 100%;
+    z-index: 1;
+    border-radius: 5px;
+  }
+  
+  .banner-item  > .description div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .banner-item > .description div.rows{
+    display: flex;
+    flex-direction: row;
+    color: #D4AF37;
+    margin: 5px 0;
+    align-items: center;
+  }
+  
+  .banner-item  > .poster{
+    position: absolute;
+    width: calc(100% - 60px);
+    object-fit: cover;
+    height: 70vh;
+    z-index: 0;
+    border-radius: 5px;
+  }
+  
+  .banner-item  > .description div:first-child{
+    max-width: 40%;
+  }
+  
+  .banner-item  > .description div:last-child{
+    min-width: 60%;
+    padding: 10px;
+    margin-left: -15px;
+  }
+  
+  .banner-item  > .description div h2{
+    margin: 0;
+  }
+  
+  .banner-item  > .description div .poster-img{
+    height: 2fr;
+    width: 3fr;
+    max-width: 3fr;
+    overflow: hidden;
+    box-shadow: 0 2px 6px 4px rgb(0 0 0 / 24%);
+  }
+  
+  @media screen and (max-width: 580px) {
+    .banner-item  > .description div:last-child{
+      min-width: calc(100% - 60px);
+      margin-left: -40%;
+      background-color: #1a2127a0;
+    }
+  }
