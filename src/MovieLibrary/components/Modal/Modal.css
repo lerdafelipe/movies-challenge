@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: fade 0.5s ease-in-out;
+    animation: fade 0.2s ease-in-out;
 }
 
 .modal-item{

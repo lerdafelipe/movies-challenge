@@ -5,11 +5,30 @@ import Banner from './Banner/Banner'
 import Modal from './Modal/Modal'
 
 export default function MoviesList ({ movies }){
-  const [selectedMovie, setSelectedMovie] = useState(null)
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const [sortingType, setSortingType] = useState('');
   const handleSelectMovie = movie => setSelectedMovie(movie)
   const handleSortingChange = event => {
-    setSortingType(event.target.value)
+    setSortingType(event.target.value);
+    if(event.target.value === 'name_asc'){
+      movies.sort((a, b)=>{
+        if (a.title > b.title) return 1;
+        if (a.title < b.title) return -1;
+        return 0;
+      })
+    }else if (event.target.value === 'name_desc'){
+      movies.sort((a, b)=>{
+        if (a.title < b.title) return 1;
+        if (a.title > b.title) return -1;
+        return 0;
+      })
+    }else if (event.target.value === 'rating'){
+      movies.sort((a, b)=>{
+        if (a.vote_average < b.vote_average) return 1;
+        if (a.vote_average > b.vote_average) return -1;
+        return 0;
+      }) 
+    }
   }
 
   return(<div className="movies-list">
