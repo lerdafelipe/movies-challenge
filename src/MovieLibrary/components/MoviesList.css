@@ -51,6 +51,12 @@
   border-radius: 3px;
 }
 
+.poster-item{
+  border-radius: 3px;
+  max-height: 10rem;
+  overflow-y: hidden;
+}
+
 .movie-date{
   color: rgba(255, 255, 255, 0.5);
   padding: 0;
@@ -94,4 +100,10 @@
   box-shadow: 0 0 0 3px -moz-mac-focusring;
   color: #222; 
   outline: none;
+}
+
+@media screen and (min-width: 950px) {
+  .poster-item{
+    max-height: 8rem;
+  }
 }

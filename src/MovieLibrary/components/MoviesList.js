@@ -3,31 +3,39 @@ import TMDBImage from './TMDBImage'
 import './MoviesList.css'
 import Banner from './Banner/Banner'
 import Modal from './Modal/Modal'
+import {useDispatch} from 'react-redux';
+import {sortMovies} from '../store/actions';
+
 
 export default function MoviesList ({ movies }){
+  const dispatch = useDispatch();
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sortingType, setSortingType] = useState('');
   const handleSelectMovie = movie => setSelectedMovie(movie)
   const handleSortingChange = event => {
     setSortingType(event.target.value);
+    let moviesSorted = []
     if(event.target.value === 'name_asc'){
-      movies.sort((a, b)=>{
-        if (a.title > b.title) return 1;
-        if (a.title < b.title) return -1;
+      moviesSorted = movies.sort((a, b)=>{
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
         return 0;
       })
+      dispatch(sortMovies(moviesSorted))
     }else if (event.target.value === 'name_desc'){
-      movies.sort((a, b)=>{
-        if (a.title < b.title) return 1;
-        if (a.title > b.title) return -1;
+      moviesSorted = movies.sort((a, b)=>{
+        if (a.name < b.name) return 1;
+        if (a.name > b.name) return -1;
         return 0;
       })
+      dispatch(sortMovies(moviesSorted))
     }else if (event.target.value === 'rating'){
-      movies.sort((a, b)=>{
+      moviesSorted = movies.sort((a, b)=>{
         if (a.vote_average < b.vote_average) return 1;
         if (a.vote_average > b.vote_average) return -1;
         return 0;
       }) 
+      dispatch(sortMovies(moviesSorted))
     }
   }
 
@@ -59,14 +67,14 @@ export default function MoviesList ({ movies }){
 
 function MovieListItem ({movie, isSelected, onSelect}) {
   const handleClick = () => onSelect(movie)
-  const { title, vote_average, backdrop_path, release_date } = movie
+  const { name,  backdrop_path, first_air_date, poster_path } = movie
   const className = `movie-list-item ${isSelected ? 'selected' : ''}`
   return(
     <div className={className} onClick={handleClick}>
       <div>
-        <TMDBImage src={backdrop_path}/>
-        {title} 
-        <p className='movie-date'>({release_date.split('-').reverse().join('/')})</p>
+        <div className="poster-item"><TMDBImage src={backdrop_path || poster_path}/></div>
+        {name} 
+        <p className='movie-date'>({first_air_date.split('-').reverse().join('/')})</p>
       </div>
     </div>)
 }

@@ -1,13 +1,17 @@
-import {LOAD_MOVIES} from '../../../actionTypes'
+import {LOAD_MOVIES, SORT_MOVIES} from '../../../actionTypes'
 
-const initialState = []
+const initialState = {
+  
+}
 
 export default function (state = initialState, action) {
-  const {type, payload} = action
-  switch (type) {
+  switch (action.type) {
 
     case LOAD_MOVIES:
-      return [...initialState, ...payload]
+      return {...state, movies: action.payload}
+
+    case SORT_MOVIES:
+      return {...state, movies: action.payload}
 
     default:
       return state

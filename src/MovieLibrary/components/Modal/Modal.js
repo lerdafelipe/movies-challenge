@@ -8,11 +8,11 @@ const Modal = ({movie, onClickFunct}) => (
             <TMDBImage src={movie.backdrop_path} className="poster-modal" />
             <div className="modal-description">
                 <div>
-                    <h2>{movie.title}</h2>
+                    <h2>{movie.name}</h2>
                     <div className='rows-modal'>
                         <h4>✭ </h4>
                         <span> {movie.vote_average} ({movie.vote_count} views) </span>
-                        <span> - {movie.release_date.split('-').reverse().join('/')}</span>
+                        <span> - {movie.first_air_date.split('-').reverse().join('/')}</span>
                     </div>
                     <h5>Summary</h5>
                     <span className='overview'><p>{movie.overview}</p></span>

@@ -1,17 +1,24 @@
-import React, { useEffect } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {fetchTopRatedMovies} from '../store/actions'
-import logo from './logo.svg'
-import './MovieLibrary.css'
-import { getMovies } from '../store/selectors'
-import MoviesList from './MoviesList'
+import React, { useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchTopRatedMovies} from '../store/actions';
+import logo from './logo.svg';
+import './MovieLibrary.css';
+import MoviesList from './MoviesList';
 
 export default function MovieLibrary() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(fetchTopRatedMovies())
+  const movies = useSelector(state => state.movies.movies);
+  const dispatch = useDispatch();
+
+  
+  useEffect(async() => {
+    await fetch('https://api.themoviedb.org/3/tv/popular?api_key=54ffed57deb5a7a8688be4de3007e578')
+      .then(data => data.json())
+      .then(dat => {
+        console.log(dat.results)
+        dispatch(fetchTopRatedMovies(dat.results));
+      })
   }, [])
-  const movies = useSelector(getMovies)
+
   return(
     <div className="MovieLibrary">
       <header className="ML-header">
@@ -19,7 +26,7 @@ export default function MovieLibrary() {
         <h1 className="ML-title">Movies</h1>
       </header>
       <div className="ML-intro">
-        { movies.length && <MoviesList movies={movies}/> }
+        { movies !== undefined && movies !== null && movies.length && <MoviesList movies={movies}/> }
       </div>
     </div>)
 }
