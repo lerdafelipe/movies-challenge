@@ -1,6 +1,6 @@
-import {LOAD_MOVIES, SORT_MOVIES} from '../../actionTypes';
+import {LOAD_MOVIES, SORT_MOVIES} from './types';
 
-export function fetchTopRatedMovies(payload) {
+export function fetchMovies(payload) {
   return {
     type: LOAD_MOVIES,
     payload

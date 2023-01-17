@@ -55,6 +55,7 @@
   border-radius: 3px;
   max-height: 10rem;
   overflow-y: hidden;
+  margin-bottom: 7px;
 }
 
 .movie-date{

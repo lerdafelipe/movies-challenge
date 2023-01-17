@@ -1,42 +1,21 @@
 import React, { useState } from 'react'
-import TMDBImage from './TMDBImage'
+import TMDBImage from '../TMDBImage'
 import './MoviesList.css'
-import Banner from './Banner/Banner'
-import Modal from './Modal/Modal'
-import {useDispatch} from 'react-redux';
-import {sortMovies} from '../store/actions';
+import Banner from '../Banner/Banner'
+import Modal from '../Modal/Modal'
+import {fetchMovies, sortMovies} from '../../store/actions';
+import { useDispatch } from 'react-redux'
 
 
 export default function MoviesList ({ movies }){
-  const dispatch = useDispatch();
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sortingType, setSortingType] = useState('');
   const handleSelectMovie = movie => setSelectedMovie(movie)
+
   const handleSortingChange = event => {
+    sortMovies(event.target.value);
     setSortingType(event.target.value);
-    let moviesSorted = []
-    if(event.target.value === 'name_asc'){
-      moviesSorted = movies.sort((a, b)=>{
-        if (a.name > b.name) return 1;
-        if (a.name < b.name) return -1;
-        return 0;
-      })
-      dispatch(sortMovies(moviesSorted))
-    }else if (event.target.value === 'name_desc'){
-      moviesSorted = movies.sort((a, b)=>{
-        if (a.name < b.name) return 1;
-        if (a.name > b.name) return -1;
-        return 0;
-      })
-      dispatch(sortMovies(moviesSorted))
-    }else if (event.target.value === 'rating'){
-      moviesSorted = movies.sort((a, b)=>{
-        if (a.vote_average < b.vote_average) return 1;
-        if (a.vote_average > b.vote_average) return -1;
-        return 0;
-      }) 
-      dispatch(sortMovies(moviesSorted))
-    }
+    fetchMovies(sortMoviesFunct(movies, event.target.value));
   }
 
   return(<div className="movies-list">
@@ -52,7 +31,7 @@ export default function MoviesList ({ movies }){
         <SortingOptions selectedOption={sortingType} onChange={handleSortingChange}/>
       </div>
       <div className='movies-container'>
-        {
+        { movies &&
           movies.map(movie =>
             <MovieListItem key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
           )
@@ -67,14 +46,14 @@ export default function MoviesList ({ movies }){
 
 function MovieListItem ({movie, isSelected, onSelect}) {
   const handleClick = () => onSelect(movie)
-  const { name,  backdrop_path, first_air_date, poster_path } = movie
+  const { title,  backdrop_path, release_date, poster_path } = movie
   const className = `movie-list-item ${isSelected ? 'selected' : ''}`
   return(
     <div className={className} onClick={handleClick}>
       <div>
         <div className="poster-item"><TMDBImage src={backdrop_path || poster_path}/></div>
-        {name} 
-        <p className='movie-date'>({first_air_date.split('-').reverse().join('/')})</p>
+        {title} 
+        <p className='movie-date'>({release_date.split('-').reverse().join('/')})</p>
       </div>
     </div>)
 }
@@ -91,3 +70,29 @@ function SortingOptions ({ selectedOption, onChange }) {
   )
 }
 
+const sortMoviesFunct = (movies, SortType) =>{
+  let moviesArray = [];
+
+  if(SortType === "name_asc"){
+    moviesArray =  movies.sort((a, b)=>{
+      if (a.title > b.title) return 1;
+      if (a.title < b.title) return -1;
+      return 0;
+    });
+  }
+  else if (SortType === "name_desc"){
+    moviesArray =  movies.sort((a, b)=>{
+      if (a.title < b.title) return 1;
+      if (a.title > b.title) return -1;
+      return 0;
+    });
+  }else if (SortType === "rating"){
+    moviesArray =  movies.sort((a, b)=>{
+      if (a.vote_average < b.vote_average) return 1;
+      if (a.vote_average > b.vote_average) return -1;
+      return 0;
+    });
+  }
+
+  return moviesArray;
+}
